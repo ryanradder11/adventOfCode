@@ -75,16 +75,16 @@ const maxBlue = 14;
 const maxRed = 12;
 const maxGreen = 13;
 
-let sumOfInvalidGamesIds = 0;
+let sumOfValidGamesIds = 0;
 games.forEach((game, index) => {
     index++;
     if(game.red <= maxRed && game.blue <= maxBlue && game.green <= maxGreen) {
         console.log('Game is valid');
-        sumOfInvalidGamesIds += index;
+        sumOfValidGamesIds += index;
     }else{
         console.log('Game is invalid');
     }
     console.log('Index:', index);
     console.log('Game:', game);
 });
-console.log('Sum of invalid games ids:', sumOfInvalidGamesIds);
+console.log('Sum of valid games ids:', sumOfValidGamesIds);
