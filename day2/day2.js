@@ -8,19 +8,11 @@ const document = fs.readFileSync('day2.txt', 'utf-8');
 // Split the document into lines
 const lines = document.split('\n');
 
-
-// Iterate through each line
-lines.forEach(line => {
-    line = line.trim();
-
-    console.log('Line:', line);
-});
-
-
 function createArrayOfGames(lines) {
     const games = [];
 
     lines.forEach(line => {
+        line = line.trim();
         console.log('Line:', line);
 
         const game = {
@@ -87,4 +79,5 @@ games.forEach((game, index) => {
     console.log('Index:', index);
     console.log('Game:', game);
 });
+
 console.log('Sum of valid games ids:', sumOfValidGamesIds);
