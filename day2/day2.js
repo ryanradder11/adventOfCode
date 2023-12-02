@@ -24,9 +24,9 @@ function createArrayOfGames(lines) {
         console.log('Line:', line);
 
         const game = {
-            blue: 0,
-            red: 0,
-            green: 0
+            blue: [],
+            red: [],
+            green: [],
         };
 
         // Remove the game prefix and replace ; with ,
@@ -37,13 +37,14 @@ function createArrayOfGames(lines) {
         let colors = line.split(',');
         console.log('Colors:', colors);
         colors.forEach(color => {
+            color = color.trim();
             const nums = color.match(/\d+/g);
             if (color.includes('blue')) {
-                game.blue = nums;
+                game.blue.push(nums[0]);
             } else if (color.includes('red')) {
-                game.red = nums;
+                game.red.push(nums[0]);
             } else if (color.includes('green')) {
-                game.green = nums;
+                game.green.push(nums[0]);
             }
         });
 
