@@ -1,5 +1,4 @@
-
-console.log('Hello day2');
+console.log('Hello day1 part 2');
 
 const fs = require('fs');
 
@@ -17,12 +16,12 @@ lines.forEach(line => {
 
     console.log('Line:', line);
 
-    // Replace the words with numbers
-    line = replaceAllNumbers(line);
+    // Fill all the words with numbers
+    line = FillAllWordsWithNumbers(line);
     console.log('Line with word to numbers:', line);
 
-    //again so we handle eightteen eightwo etc
-    line = replaceAllNumbers(line);
+    //we do it again so we handle eightteen eightwo etc
+    line = FillAllWordsWithNumbers(line);
     console.log('Line with word to numbers again:', line);
 
     // Remove all non-digits
@@ -43,7 +42,7 @@ lines.forEach(line => {
 // Print the total sum of calibration values
 console.log('Total Sum:', sum);
 
-function replaceAllNumbers(line )  {
+function FillAllWordsWithNumbers(line )  {
     line = line.replace(/one/g, 'one1one');
     line = line.replace(/two/g, 'two2two');
     line = line.replace(/three/g, 'three3three');
