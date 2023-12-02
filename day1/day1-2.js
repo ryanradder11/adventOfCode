@@ -20,8 +20,6 @@ lines.forEach(line => {
     line = fillAllWordsWithNumbers(line);
     console.log('Line with word to numbers:', line);
 
-    console.log('Line with word to numbers again:', line);
-
     // Remove all non-digits
     line = line.replace(/\D+/g, '');
     console.log('Line trimmed:', line);
