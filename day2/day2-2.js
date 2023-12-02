@@ -21,8 +21,8 @@ function createArrayOfGames(lines) {
     const games = [];
 
     lines.forEach(line => {
-        console.log('Line:', line);
 
+        //initialize game
         const game = {
             blue: [],
             red: [],
