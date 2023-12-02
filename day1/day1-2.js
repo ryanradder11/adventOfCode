@@ -3,7 +3,7 @@ console.log('Hello day1 part 2');
 const fs = require('fs');
 
 // Read the calibration document from file
-const document = fs.readFileSync('day2.txt', 'utf-8');
+const document = fs.readFileSync('day1.txt', 'utf-8');
 
 // Split the document into lines
 const lines = document.split('\n');
@@ -20,8 +20,6 @@ lines.forEach(line => {
     line = fillAllWordsWithNumbers(line);
     console.log('Line with word to numbers:', line);
 
-    //Do it again so we handle eightteen eightwo etc
-    line = fillAllWordsWithNumbers(line);
     console.log('Line with word to numbers again:', line);
 
     // Remove all non-digits
