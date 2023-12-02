@@ -20,7 +20,7 @@ lines.forEach(line => {
     line = FillAllWordsWithNumbers(line);
     console.log('Line with word to numbers:', line);
 
-    //we do it again so we handle eightteen eightwo etc
+    //Do it again so we handle eightteen eightwo etc
     line = FillAllWordsWithNumbers(line);
     console.log('Line with word to numbers again:', line);
 
