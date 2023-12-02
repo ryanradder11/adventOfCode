@@ -3,7 +3,7 @@ console.log('Hello day2');
 const fs = require('fs');
 
 // Read the games from file
-const document = fs.readFileSync('day2-test.txt', 'utf-8');
+const document = fs.readFileSync('day2.txt', 'utf-8');
 
 // Split the document into lines
 const lines = document.split('\n');
@@ -69,4 +69,22 @@ function cutOffGamePrefix(string) {
 
 
 const games = createArrayOfGames(lines);
-console.log(games);
+
+//Elves silly demands
+const maxBlue = 14;
+const maxRed = 12;
+const maxGreen = 13;
+
+let sumOfInvalidGamesIds = 0;
+games.forEach((game, index) => {
+    index++;
+    if(game.red <= maxRed && game.blue <= maxBlue && game.green <= maxGreen) {
+        console.log('Game is valid');
+        sumOfInvalidGamesIds += index;
+    }else{
+        console.log('Game is invalid');
+    }
+    console.log('Index:', index);
+    console.log('Game:', game);
+});
+console.log('Sum of invalid games ids:', sumOfInvalidGamesIds);
