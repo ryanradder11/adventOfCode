@@ -3,7 +3,7 @@ console.log('Hello day1');
 const fs = require('fs');
 
 // Read the calibration document from file
-const document = fs.readFileSync('day1.txt', 'utf-8');
+const document = fs.readFileSync('day2.txt', 'utf-8');
 
 // Split the document into lines
 const lines = document.split('\n');
