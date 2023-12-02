@@ -48,6 +48,10 @@ function createArrayOfGames(lines) {
             }
         });
 
+        //get max of each color
+        game.red = Math.max(...game.red);
+        game.blue = Math.max(...game.blue);
+        game.green = Math.max(...game.green);
         games.push(game);
     });
 
