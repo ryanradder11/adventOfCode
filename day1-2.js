@@ -17,11 +17,11 @@ lines.forEach(line => {
     console.log('Line:', line);
 
     // Fill all the words with numbers
-    line = FillAllWordsWithNumbers(line);
+    line = fillAllWordsWithNumbers(line);
     console.log('Line with word to numbers:', line);
 
     //Do it again so we handle eightteen eightwo etc
-    line = FillAllWordsWithNumbers(line);
+    line = fillAllWordsWithNumbers(line);
     console.log('Line with word to numbers again:', line);
 
     // Remove all non-digits
@@ -42,7 +42,7 @@ lines.forEach(line => {
 // Print the total sum of calibration values
 console.log('Total Sum:', sum);
 
-function FillAllWordsWithNumbers(line )  {
+function fillAllWordsWithNumbers(line )  {
     line = line.replace(/one/g, 'one1one');
     line = line.replace(/two/g, 'two2two');
     line = line.replace(/three/g, 'three3three');
