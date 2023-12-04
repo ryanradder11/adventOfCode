@@ -3,7 +3,7 @@ console.log('Hello day3');
 const fs = require('fs');
 
 // Read the games from file
-const document = fs.readFileSync('day3.txt', 'utf-8');
+const document = fs.readFileSync('day4.txt', 'utf-8');
 
 // Split the document into lines
 const lines = document.split('\n');
@@ -102,7 +102,7 @@ function processSchematicsLine(str) {
                 tempPositions.push( (i <= 0) ? 0 : i - 1);
             }
             if(i === str.length - 1) {
-               tempPositions.push(i);
+                tempPositions.push(i);
             }
             tempPositions.push(i);
             tempPositions.push(i + 1);
