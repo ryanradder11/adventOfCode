@@ -8,7 +8,6 @@ const document = fs.readFileSync('day4.txt', 'utf-8');
 // Split the document into lines
 const lines = document.split('\n');
 
-
 const gamesLines = [];
 const cardLines = [];
 const answerLines = [];
@@ -40,6 +39,7 @@ function countCommonNumbers(arr1, arr2) {
 
     return count;
 }
+
 lines.forEach((line, index) => {
     //Normalize and push to engineSchematics Array
     line = normalizeLine(line);
@@ -49,8 +49,6 @@ lines.forEach((line, index) => {
     cardLines.push(line[0].trim().split(/\s+/).map(Number));
     answerLines.push(line[1].trim().split(/\s+/).map(Number));
 });
-
-
 
 let answer = 0;
 gamesLines.forEach((line, index) => {
@@ -73,7 +71,6 @@ gamesLines.forEach((line, index) => {
     console.log('Answer to add:', answerToAdd);
     answer += answerToAdd;
 });
-
 
 
 console.log('Games lines:', gamesLines);
