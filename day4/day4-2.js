@@ -2,7 +2,7 @@ console.log('Hello day4');
 
 const fs = require('fs');
 
-const document = fs.readFileSync('day4-test2.txt', 'utf-8');
+const document = fs.readFileSync('day4.txt', 'utf-8');
 const lines = document.split('\n');
 
 let gameCards = [];
@@ -49,32 +49,17 @@ for (let i = 0; i < gameCards.length; i++) {
     processCard(i);
 }
 
-console.log('total cards:', totalCards);
 
 function processCard(index) {
-    if (cardCounts.has(index)) {
-        // card already processed
-        return;
-    }
+
 
     const commonNumbers = countCommonNumbers(gameCards[index], cardAnswers[index]);
 
-    let count = 0;
-    if(commonNumbers === 0) {
-        count = 1;
-    } else if(commonNumbers === 1) {
-        count = 2;
-    } else if(commonNumbers === 2) {
-        count = 4;
-    } else {
-        count = 2 ** commonNumbers;
-    }
-
-    cardCounts.set(index, count);
-    totalCards += count;
+    totalCards += commonNumbers;
 
     for (let i = 1; i <= commonNumbers; i++) {
         let nextIndex = index + i
         processCard(nextIndex);
+        console.log('total cards:', totalCards + lines.length);
     }
 }
