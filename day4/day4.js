@@ -21,8 +21,6 @@ function cutOffGamePrefix(string) {
     const colonIndex = string.indexOf(":");
     if (colonIndex !== -1) {
         return string.slice(colonIndex + 1).trim();
-    } else {
-        return string.trim();
     }
 }
 
@@ -52,10 +50,10 @@ lines.forEach((line, index) => {
 
 let answer = 0;
 gamesLines.forEach((line, index) => {
-    console.log('Index:', index);
-    console.log('GameLine:', line);
-    console.log('CardsLine:', cardLines[index]);
-    console.log('AnswerLine:', answerLines[index]);
+    // console.log('Index:', index);
+    // console.log('GameLine:', line);
+    // console.log('CardsLine:', cardLines[index]);
+    // console.log('AnswerLine:', answerLines[index]);
     const commonNumbers = countCommonNumbers(cardLines[index], answerLines[index]);
     let answerToAdd = 0;
     if(commonNumbers === 0) {
@@ -67,8 +65,8 @@ gamesLines.forEach((line, index) => {
     }else  {
         answerToAdd = 2 ** (commonNumbers - 1);
     }
-    console.log('Common numbers:', commonNumbers);
-    console.log('Answer to add:', answerToAdd);
+    // console.log('Common numbers:', commonNumbers);
+    // console.log('Answer to add:', answerToAdd);
     answer += answerToAdd;
 });
 

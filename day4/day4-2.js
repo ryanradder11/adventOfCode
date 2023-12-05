@@ -15,8 +15,6 @@ function cutOffGamePrefix(string) {
     const colonIndex = string.indexOf(":");
     if (colonIndex !== -1) {
         return string.slice(colonIndex + 1).trim();
-    } else {
-        return string.trim();
     }
 }
 
