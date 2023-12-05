@@ -62,5 +62,5 @@ function processCard(index) {
         processCard(nextIndex);
     }
 
-    console.log('total cards:', totalCards + lines.length);
 }
+console.log('total cards:', totalCards + lines.length);
