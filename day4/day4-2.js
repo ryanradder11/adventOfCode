@@ -1,10 +1,8 @@
 console.log('Hello day4');
 
 const fs = require('fs');
-
 const document = fs.readFileSync('day4.txt', 'utf-8');
 const lines = document.split('\n');
-
 let gameCards = [];
 let cardAnswers = [];
 
@@ -26,13 +24,11 @@ function countCommonNumbers(arr1, arr2) {
     const set1 = new Set(arr1);
     const set2 = new Set(arr2);
     let count = 0;
-
     set1.forEach((num) => {
         if (set2.has(num)) {
             count++;
         }
     });
-
     return count;
 }
 lines.forEach((line) => {
@@ -42,25 +38,18 @@ lines.forEach((line) => {
     cardAnswers.push(line[1].trim().split(/\s+/).map(Number));
 });
 
-let cardCounts = new Map();
 let totalCards = 0;
 
 for (let i = 0; i < gameCards.length; i++) {
     processCard(i);
 }
 
-
 function processCard(index) {
-
-
     const commonNumbers = countCommonNumbers(gameCards[index], cardAnswers[index]);
-
     totalCards += commonNumbers;
-
     for (let i = 1; i <= commonNumbers; i++) {
         let nextIndex = index + i
         processCard(nextIndex);
     }
-
 }
 console.log('total cards:', totalCards + lines.length);
