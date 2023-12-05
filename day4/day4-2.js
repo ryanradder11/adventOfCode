@@ -60,6 +60,7 @@ function processCard(index) {
     for (let i = 1; i <= commonNumbers; i++) {
         let nextIndex = index + i
         processCard(nextIndex);
-        console.log('total cards:', totalCards + lines.length);
     }
+
+    console.log('total cards:', totalCards + lines.length);
 }
