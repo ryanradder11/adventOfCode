@@ -43,6 +43,10 @@ for (let i = 0; i < gameCards.length; i++) {
 }
 
 function processCard(index) {
+    console.log('Seed:', index);
+    console.log('SeedToSoil:', line);
+    console.log('soil-to-fertilizer:', cardLines[index]);
+    console.log('fertilizer-to-water:', answerLines[index]);
     const commonNumbers = countCommonNumbers(gameCards[index], cardAnswers[index]);
     totalCards += commonNumbers;
     for (let i = 1; i <= commonNumbers; i++) {
