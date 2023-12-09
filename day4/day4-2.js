@@ -17,7 +17,7 @@ function cutOffGamePrefix(string) {
         return string.slice(colonIndex + 1).trim();
     }
 }
-
+// Seed 14, soil 14, fertilizer 53, water 49, light 42, temperature 42, humidity 43, location 43.
 function countCommonNumbers(arr1, arr2) {
     const set1 = new Set(arr1);
     const set2 = new Set(arr2);
