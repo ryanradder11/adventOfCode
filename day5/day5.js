@@ -1,7 +1,7 @@
 console.log('Hello day5');
 
 const fs = require('fs');
-const document = fs.readFileSync('day5-test.txt', 'UTF-8').split('\n').filter(line => line.trim() !== '');
+const document = fs.readFileSync('day5.txt', 'UTF-8').split('\n').filter(line => line.trim() !== '');
 const seeds = document[0].split(': ')[1].split(' ').map(Number);
 console.log('seeds:', seeds);
 
@@ -57,20 +57,6 @@ for (let i = 1; i < document.length; i++) {
         searchHumidityToLocationBegin = i;
     }
 }
-
-function createRanges(line) {
-    return {
-        destinationRanges: createRange(line[0], line[2]),
-        sourceRanges: createRange(line[1], line[2]),
-    }
-}
-function createRange(rangeStart, rangeLength) {
-    let range = [];
-    for(let i = rangeStart; i < rangeStart + rangeLength; i++) {
-        range.push(i);
-    }
-    return range;
-}
 seedToSoil = document.slice(searchSeedToSoilBegin + 1, searchSeedToSoilEnd).map(line => line.split(' ').map(Number))
 soilToFertilizer = document.slice(searchSoilToFertilizerBegin + 1, searchSoilToFertilizerEnd).map(line => line.split(' ').map(Number));
 fertilizerToWater = document.slice(searchFertilizerToWaterBegin + 1, searchFertilizerToWaterEnd).map(line => line.split(' ').map(Number));
@@ -78,6 +64,31 @@ waterToLight = document.slice(searchWaterToLightBegin + 1, searchWaterToLightEnd
 lightToTemperature = document.slice(searchLightToTemperatureBegin + 1, searchLightToTemperatureEnd).map(line => line.split(' ').map(Number));
 temperatureToHumidity = document.slice(searchTemperatureToHumidityBegin + 1, searchTemperatureToHumidityEnd).map(line => line.split(' ').map(Number));
 humidityToLocation = document.slice(searchHumidityToLocationBegin + 1, searchHumidityToLocationEnd).map(line => line.split(' ').map(Number));
+
+function createRanges(line) {
+    return {
+        destinationRanges: createRange(line[0], line[2]),
+        sourceRanges: createRange(line[1], line[2]),
+    }
+}
+function createRange(rangeStart, rangeLength, batchSize = 150001) {
+    if (rangeLength <= batchSize) {
+        // Base case: Batch size is larger than range length
+        let range = [];
+        for (let i = rangeStart; i < rangeStart + rangeLength; i++) {
+            range.push(i);
+        }
+        return range;
+    } else {
+        // Recursive case: Split range into batches recursively
+        let range = [];
+        const remainingRange = rangeLength - batchSize;
+        range = range.concat(createRange(rangeStart, batchSize));
+        if(remainingRange === 0) {return range;}
+        range = range.concat(createRange(rangeStart + batchSize, remainingRange));
+        return range;
+    }
+}
 
 seedToSoilMaps= seedToSoil.map(line => createRanges(line));
 soilToFertilizerMaps = soilToFertilizer.map(line => createRanges(line));
