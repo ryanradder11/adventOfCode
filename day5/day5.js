@@ -1,7 +1,7 @@
 console.log('Hello day5');
 
 const fs = require('fs');
-const document = fs.readFileSync('day5.txt', 'UTF-8').split('\n').filter(line => line.trim() !== '');
+const document = fs.readFileSync('day5-test.txt', 'UTF-8').split('\n').filter(line => line.trim() !== '');
 const seeds = document[0].split(': ')[1].split(' ').map(Number);
 console.log('seeds:', seeds);
 
@@ -89,135 +89,37 @@ humidityToLocationMaps = humidityToLocation.map(line => createRanges(line));
 
 
 
-    function findCorrespondingLocation(seed) {
-        function getClosestValue(arr, target) {
-            return arr.reduce((prev, curr) => {
-                return (Math.abs(curr - target) < Math.abs(prev - target) ? curr : prev);
-            });
+function findCorrespondingLocation(seed) {
+    const maps = [
+        seedToSoilMaps,
+        soilToFertilizerMaps,
+        fertilizerToWaterMaps,
+        waterToLightMaps,
+        lightToTemperatureMaps,
+        temperatureToHumidityMaps,
+        humidityToLocationMaps
+    ];
+
+    const getClosestValue = (arr, target) =>
+        arr.reduce((prev, curr) => (Math.abs(curr - target) < Math.abs(prev - target) ? curr : prev));
+
+    let currentNumber = seed;
+
+    for (let map of maps) {
+        let foundNumbers = map.reduce((acc, { sourceRanges, destinationRanges }) => {
+            const index = sourceRanges.indexOf(currentNumber);
+            return index !== -1 ? acc.concat(destinationRanges[index]) : acc;
+        }, []);
+
+        if (foundNumbers.length === 0) {
+            foundNumbers.push(currentNumber);
         }
 
-        let currentNumber = seed;
-
-        // Convert seed through seedToSoilMaps
-        let originalSeedToSoilNumber = currentNumber;
-        let foundSeedToSoilNumbers = [];
-        seedToSoilMaps.forEach((map) => {
-            if (map.sourceRanges.includes(currentNumber)) {
-                const index = map.sourceRanges.indexOf(currentNumber);
-                currentNumber = map.destinationRanges[index];
-                foundSeedToSoilNumbers.push(currentNumber);
-            }
-        });
-        if(foundSeedToSoilNumbers.length === 0) {
-            foundSeedToSoilNumbers.push(currentNumber);
-        }
-        currentNumber = getClosestValue(foundSeedToSoilNumbers, originalSeedToSoilNumber);
-        // console.log('current-SeedToSoilNumber:', currentNumber);
-
-        // Convert seed through soilToFertilizerMaps
-        let originalSoilToFertilizerNumber = currentNumber;
-        let foundSoilToFertilizerNumbers = [];
-        soilToFertilizerMaps.forEach((map) => {
-            if (map.sourceRanges.includes(currentNumber)) {
-                const index = map.sourceRanges.indexOf(currentNumber);
-                currentNumber = map.destinationRanges[index];
-                foundSoilToFertilizerNumbers.push(currentNumber);
-                // console.log('transformed-SoilToFertilizerNumber:', currentNumber);
-            }
-        });
-        if(foundSoilToFertilizerNumbers.length === 0) {
-            foundSoilToFertilizerNumbers.push(currentNumber);
-        }
-        currentNumber = getClosestValue(foundSoilToFertilizerNumbers, originalSoilToFertilizerNumber);
-        // console.log('current-SoilToFertilizerNumber:', currentNumber);
-
-        // Convert seed through fertilizerToWaterMaps
-        let originalFertilizerToWaterNumber = currentNumber;
-        let foundFertilizerToWaterNumbers = [];
-        fertilizerToWaterMaps.forEach((map) => {
-            if (map.sourceRanges.includes(currentNumber)) {
-                const index = map.sourceRanges.indexOf(currentNumber);
-                currentNumber = map.destinationRanges[index];
-                foundFertilizerToWaterNumbers.push(currentNumber);
-                // console.log('transformed-FertilizerToWaterNumber:', currentNumber);
-            }
-        });
-        if(foundFertilizerToWaterNumbers.length === 0) {
-            foundFertilizerToWaterNumbers.push(currentNumber);
-        }
-        currentNumber = getClosestValue(foundFertilizerToWaterNumbers, originalFertilizerToWaterNumber);
-        // console.log('current-FertilizerToWaterNumber:', currentNumber);
-
-        // Convert seed through waterToLightMaps
-        let originalWaterToLightNumber = currentNumber;
-        let foundWaterToLightNumbers = [];
-        waterToLightMaps.forEach((map) => {
-            if (map.sourceRanges.includes(currentNumber)) {
-                const index = map.sourceRanges.indexOf(currentNumber);
-                currentNumber = map.destinationRanges[index];
-                foundWaterToLightNumbers.push(currentNumber);
-                // console.log('transformed-WaterToLightNumber:', currentNumber);
-            }
-        });
-        if(foundWaterToLightNumbers.length === 0) {
-            foundWaterToLightNumbers.push(currentNumber);
-        }
-        currentNumber = getClosestValue(foundWaterToLightNumbers, originalWaterToLightNumber);
-        // console.log('current-WaterToLightNumber:', currentNumber);
-
-        // Convert seed through lightToTemperatureMaps
-        let originalLightToTemperatureNumber = currentNumber;
-        let foundLightToTemperatureNumbers = [];
-        lightToTemperatureMaps.forEach((map) => {
-            if (map.sourceRanges.includes(currentNumber)) {
-                const index = map.sourceRanges.indexOf(currentNumber);
-                currentNumber = map.destinationRanges[index];
-                foundLightToTemperatureNumbers.push(currentNumber);
-                // console.log('transformed-LightToTemperatureNumber:', currentNumber);
-            }
-        });
-        if(foundLightToTemperatureNumbers.length === 0) {
-            foundLightToTemperatureNumbers.push(currentNumber);
-        }
-        currentNumber = getClosestValue(foundLightToTemperatureNumbers, originalLightToTemperatureNumber);
-        // console.log('current-LightToTemperatureNumber:', currentNumber);
-
-        // Convert seed through temperatureToHumidityMaps
-        let originalTemperatureToHumidityNumber = currentNumber;
-        let foundTemperatureToHumidityNumbers = [];
-        temperatureToHumidityMaps.forEach((map) => {
-            if (map.sourceRanges.includes(currentNumber)) {
-                const index = map.sourceRanges.indexOf(currentNumber);
-                currentNumber = map.destinationRanges[index];
-                foundTemperatureToHumidityNumbers.push(currentNumber);
-                // console.log('transformed-TemperatureToHumidityNumber:', currentNumber);
-            }
-        });
-        if(foundTemperatureToHumidityNumbers.length === 0) {
-            foundTemperatureToHumidityNumbers.push(currentNumber);
-        }
-        currentNumber = getClosestValue(foundTemperatureToHumidityNumbers, originalTemperatureToHumidityNumber);
-        // console.log('current-TemperatureToHumidityNumber:', currentNumber);
-
-        // Convert seed through humidityToLocationMaps
-        let originalHumidityToLocationNumber = currentNumber;
-        let foundHumidityToLocationNumbers = [];
-        humidityToLocationMaps.forEach((map) => {
-            if (map.sourceRanges.includes(currentNumber)) {
-                const index = map.sourceRanges.indexOf(currentNumber);
-                currentNumber = map.destinationRanges[index];
-                foundHumidityToLocationNumbers.push(currentNumber);
-                // console.log('transformed-HumidityToLocationNumber:', currentNumber);
-            }
-        });
-        if(foundHumidityToLocationNumbers.length === 0) {
-            foundHumidityToLocationNumbers.push(currentNumber);
-        }
-        currentNumber = getClosestValue(foundHumidityToLocationNumbers, originalHumidityToLocationNumber);
-
-        // console.log('current-HumidityToLocationNumber:', currentNumber);
-        return currentNumber;
+        currentNumber = getClosestValue(foundNumbers, currentNumber);
     }
+
+    return currentNumber;
+}
 
 // Iterate over each seed and find the corresponding location
 
@@ -226,7 +128,7 @@ seeds.forEach((seed) => {
     const location = findCorrespondingLocation(seed);
     locations.push(location);
     // console.log('-------------------------');
-    // console.log(`locations for seed ${seed} is: ${location}`);
+    console.log(`locations for seed ${seed} is: ${location}`);
     // console.log('-------------------------');
     // console.log('-------------------------');
 
