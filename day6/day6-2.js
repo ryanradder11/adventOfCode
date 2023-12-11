@@ -1,6 +1,6 @@
 //time
-let times =   [50 ,74, 86, 85];
-let records = [242, 1017, 1691, 1252];
+let times =   [71530];
+let records = [940200];
 let possibleWinss = [[]];
 function calculateMaxDistance(index) {
     let time = times[index];
@@ -30,4 +30,4 @@ let maxDistances = times.map((time, index) => calculateMaxDistance(index));
 console.log(maxDistances);
 console.log(possibleWinss);
 console.log('------------------');
-console.log('anser: ',possibleWinss[0].length * possibleWinss[1].length * possibleWinss[2].length);
+console.log('anser: ',possibleWinss[0].length);
