@@ -14,40 +14,44 @@ lines.forEach((line) => {
 
 let fiveOfAKind = [7, identifier = (hand) => /^(\w)\1*$/.test(hand)];
 let fourOfAKind = [6, identifier = (hand) => /^(\w)\1{3}$/.test(hand)];
-let fullHouse = [5, identifier = (hand) => /^(\w)\1{2}(\w)\2$/.test(hand)];
+let fullHouse = [5, identifier = (hand) => /(\w)(?=(.*\1){2})(?!(.*\1){3}).*(\w)(?=(.*\2){1})(?!(.*\2){2})/.test(hand)];
 let threeOfAKind = [4, identifier = (hand) => /^(\w)\1{2}$/.test(hand)];
 let twoPair = [3, identifier = (hand) => /(\w).*\1.*(\w).*\2/.test(hand)];
-let onePair = [2, identifier = (hand) =>  /(.)\1/.test(hand)];
+let onePair = [2, identifier = (hand) => /(\w).*\1/.test(hand)];
 let highCard = [1, identifier = (hand) => !/(.).*\1/.test(hand)];
 
+hands = ['T42JT'];
+
+let testHand = 'T42JT';
+
+console.log('five of a kind: '+ fiveOfAKind[1](testHand));
+console.log('four of a kind: '+ fourOfAKind[1](testHand));
+console.log('full house: '+ fullHouse[1](testHand));
+console.log('three of a kind: '+ threeOfAKind[1](testHand));
+console.log('two pair: '+ twoPair[1](testHand));
+console.log('one pair: '+ onePair[1](testHand));
+console.log('high card: '+ highCard[1](testHand));
 hands.forEach((hand, index) => {
     if(fiveOfAKind[1](hand)) {
         console.log('five of a kind: '+ hand);
-        return;
     }
     else if(fourOfAKind[1](hand)) {
         console.log('four of a kind: '+ hand);
-        return;
     }
     else if(fullHouse[1](hand)) {
         console.log('full house: '+ hand);
-        return;
     }
     else if(threeOfAKind[1](hand)) {
         console.log('three of a kind: '+ hand);
-        return;
     }
     else if(twoPair[1](hand)) {
         console.log('two pair: '+ hand);
-        return;
     }
     else if(onePair[1](hand)) {
         console.log('one pair: '+ hand);
-        return;
     }
     else if(highCard[1](hand)) {
         console.log('high card: '+ hand);
-
     } else {
         console.log('no hand: '+ hand);
     }
