@@ -12,21 +12,37 @@ lines.forEach((line) => {
     bets.push(line[1]);
 });
 
+//In comes AA87B -> 78AAB
+//sort the hands before checking for patterns
+hands = hands.map((hand) => {
+   let handArray = hand.split('');
+    return  handArray.sort((a, b) => {
+        return a.charCodeAt(0) - b.charCodeAt(0);
+    }).toString().replace(/,/g, '');
+});
+
+
 let fiveOfAKind = [7, identifier = (hand) => /^(\w)\1*$/.test(hand)];
 let fourOfAKind = [6, identifier = (hand) => /^(\w)\1{3}$/.test(hand)];
-let fullHouse = [5, identifier = (hand) => /(\w)(?=(.*\1){2})(?!(.*\1){3}).*(\w)(?=(.*\2){1})(?!(.*\2){2})/.test(hand)];
-let threeOfAKind = [4, identifier = (hand) => /^(\w)\1{2}$/.test(hand)];
+let fullHouse = [5, identifier = (hand) => {
+        let counts = Array.from(hand).reduce((acc, val) => {
+            acc[val] = (acc[val] || 0) + 1;
+            return acc;
+        }, {});
+        let vals = Object.values(counts);
+        return (vals.includes(2) && vals.includes(3));
+    }];
+let threeOfAKind = [4, identifier = (hand) => /(\w)(?=(.*\1){2})(?!(.*\1){3})/.test(hand)];
 let twoPair = [3, identifier = (hand) => /(\w).*\1.*(\w).*\2/.test(hand)];
 let onePair = [2, identifier = (hand) => /(\w).*\1/.test(hand)];
 let highCard = [1, identifier = (hand) => !/(.).*\1/.test(hand)];
 
-hands = ['T42JT'];
+// hands = ['T42JT'];
 
 let testHand = 'T42JT';
 
 console.log('five of a kind: '+ fiveOfAKind[1](testHand));
 console.log('four of a kind: '+ fourOfAKind[1](testHand));
-console.log('full house: '+ fullHouse[1](testHand));
 console.log('three of a kind: '+ threeOfAKind[1](testHand));
 console.log('two pair: '+ twoPair[1](testHand));
 console.log('one pair: '+ onePair[1](testHand));
